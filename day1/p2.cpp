@@ -10,26 +10,21 @@ int main(){
 	vector<int> leftList;
 	vector<int> rightList;
 
+	// Sort into lists
 	bool flag = true;
 	int nextInt;
-	ifstream input("input.txt");
+	ifstream input("input");
 	while(input >> nextInt){
 		if(flag){leftList.push_back(nextInt);}
 		else {rightList.push_back(nextInt);}
 		flag = !flag;
 	}
-
-
-	// Sort lists
-	sort(leftList.begin(), leftList.end());
-	sort(rightList.begin(), rightList.end());
 	
-	// Calculate distance
-	int totalDistance = 0;
+	// Calculate similarity score
+	int simScore = 0;
 	for(int i = 0; i < leftList.size(); i++){
-		cout << leftList[i] << "    " << rightList[i] << endl;
-		totalDistance += abs(leftList[i] - rightList[i]);
+		simScore += (leftList[i] * count(rightList.begin(), rightList.end(), leftList[i]));
 	}
 
-	cout << "Total Distance: " << totalDistance << endl;
+	cout << "Similarity Score: " << simScore << endl;
 }
